@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+ @font-face {
+    font-family: 'Josefin';
+    src: url(/src/assets/Josefin_Sans/JosefinSans-VariableFont_wght.ttf);
+  }
+
+
+body{
+  font-family: "Josefin";
+  /* background-color: #919090; */
+}
