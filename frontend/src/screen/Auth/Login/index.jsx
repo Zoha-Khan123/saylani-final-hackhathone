@@ -53,8 +53,8 @@ const Login = () => {
   };
 
   return (
-    <div className="space-y-6 flex flex-col justify-center items-center h-screen">
-      <h1 className="text-3xl lg:text-4xl font-bold text-center">
+    <div className="space-y-6 flex flex-col justify-center items-center mx-auto h-screen max-w-[300px] sm:max-w-[500px]">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center">
         Access Your Dashboard
       </h1>
       <div className="space-y-4 w-full max-w-[400px]">
@@ -95,9 +95,9 @@ const Login = () => {
           <button className="bg-black hover:bg-gray-800 text-white px-20 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg ">
             Login
           </button>
-          <Link to="/forgot-password" className="text-center hover:underline">
+          {/* <Link to="/forgot-password" className="text-center hover:underline">
             Forgot Password ?
-          </Link>
+          </Link> */}
         </form>
 
         <p className="text-center text-sm text-gray-600">

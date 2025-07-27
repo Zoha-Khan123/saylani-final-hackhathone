@@ -5,7 +5,7 @@ import { ForgotPassword, Signup, Login } from "./screen/Auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AdminDashboard , DetailFeedback, ViewFeedback } from "./screen/Admin";
-import { StudentDashboard , Feedback } from "./screen/Student";
+import { StudentDashboard , Feedback, Thanks } from "./screen/Student";
 import { TrainerDashboard } from "./screen/Trainer";
 import { StudentDashboardLayout, ProtectedRoute, AdminDashboardLayout } from "./Layouts";
 
@@ -73,6 +73,7 @@ const App = () => {
           >
             <Route index element={<StudentDashboard />} />
             <Route path="feedback" element={<Feedback />} />
+            <Route path="thanks" element={<Thanks />} />
           </Route>
 
 

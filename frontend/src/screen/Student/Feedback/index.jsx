@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const StudentFeedback = () => {
   const baseUrl = `${import.meta.env.VITE_BACKEND_URL}/auth/student-feedback`;
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,6 +29,9 @@ const StudentFeedback = () => {
       const data = await res.json();
       if (res.ok) {
         toast.success(data.message);
+        setTimeout(() => {
+          navigate("/student-dashboard/thanks");
+        }, 2000);
       } else {
         toast.error(data.message);
       }

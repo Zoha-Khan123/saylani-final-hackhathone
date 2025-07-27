@@ -40,7 +40,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center  h-screen max-w-[500px] mx-auto space-y-4">
+    <div className="flex flex-col justify-center items-center  h-screen max-w-[300px] sm:max-w-[500px] mx-auto space-y-4">
       <h1 className="text-4xl lg:text-5xl font-bold">Create Account</h1>
       <form
         onSubmit={handleSignup}

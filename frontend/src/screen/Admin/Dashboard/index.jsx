@@ -80,47 +80,56 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">All Users</h2>
-      <table className="w-full border-collapse border">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border p-2">Name</th>
-            <th className="border p-2">Email</th>
-            <th className="border p-2">Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id} className="text-center">
-              <td className="border p-2">{user.name}</td>
-              <td className="border p-2">{user.email}</td>
-              <td className="border p-2">
-                <select
-                  value={user.role}
-                  onChange={(e) => handleRoleChange(user._id, e.target.value)}
-                  className="border rounded px-2 py-1"
-                >
-                  <option disabled value="">
-                    Select role
+    <div className="p-4 max-w-3xl mx-auto h-screen">
+  <h2 className="text-2xl font-bold mb-4">All Users</h2>
+
+  {/* ✅ Add scroll wrapper here */}
+  <div className="overflow-x-auto w-full">
+    <table className="min-w-[600px] border-collapse border w-full">
+      <thead>
+        <tr className="bg-gray-200">
+          <th className="border p-2">Name</th>
+          <th className="border p-2">Email</th>
+          <th className="border p-2">Role</th>
+          <th className="border p-2">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user._id} className="text-center">
+            <td className="border p-2">{user.name}</td>
+            <td className="border p-2">{user.email}</td>
+            <td className="border p-2">
+              <select
+                value={user.role}
+                onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                className="border rounded px-2 py-1"
+              >
+                <option disabled value="">
+                  Select role
+                </option>
+                {roles.map((r) => (
+                  <option key={r} value={r}>
+                    {r}
                   </option>
-                  {roles.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <button onClick={() => handleDeleteUser(user._id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                ))}
+              </select>
+            </td>
+            <td className="border p-2">
+              <button
+                onClick={() => handleDeleteUser(user._id)}
+                className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
   );
 };
 

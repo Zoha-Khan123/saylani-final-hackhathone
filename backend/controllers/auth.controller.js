@@ -87,49 +87,57 @@ export const updateRole = async (req, res) => {
 
 // ================= Login ==================
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Please fill all the required fields" });
-  }
-  //  Email
-  const user = await AuthUser.findOne({ email });
-  console.log(user);
+    // 1. Validate input
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Please fill all the required fields" });
+    }
 
-  if (!user) {
-    return res.status(400).json({ message: "User not found" });
-  }
-  // Password
-  const match = await comparePassword(password, user.password);
-  if (!match) {
-    return res.status(400).json({ message: "Password does not match" });
-  }
+    // 2. Find user by email
+    const user = await AuthUser.findOne({ email });
+    console.log("User found:", user);
 
-  // Check Role Assigned
-  if (!user.role || user.role === "none") {
-    return res
-      .status(403)
-      .json({ message: "No role yet. You'll get an email when assigned." });
-  }
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
 
-  // Role is assigned, create token
-  const { _id, name, email: UserEmail, role } = user;
+    // 3. Check password
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      return res.status(400).json({ message: "Password does not match" });
+    }
 
-  const token = jwt.sign(
-    { _id, name, email: UserEmail, role },
-    process.env.JWT_SECRET_KEY,
-    { expiresIn: "1d" }
-  );
-  res
-    .status(200)
-    .json({
-      message: "Login succeessfully",
+    // 4. Check if role is assigned
+    if (!user.role || user.role === "none") {
+      return res
+        .status(403)
+        .json({ message: "No role yet. You'll get an email when assigned." });
+    }
+
+    // 5. Generate token
+    const { _id, name, email: UserEmail, role } = user;
+    const token = jwt.sign(
+      { _id, name, email: UserEmail, role },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "1d" }
+    );
+
+    // 6. Send success response
+    return res.status(200).json({
+      message: "Login successfully",
       token,
       user: { _id, name, email: UserEmail, role },
     });
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.status(500).json({ message: "Something went wrong. Try again." });
+  }
 };
+
 
 // ================= Delete User ==================
 export const deleteUser = async (req, res) => {

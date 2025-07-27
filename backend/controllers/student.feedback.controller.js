@@ -2,7 +2,11 @@ import StudentFeedbackModel from "../models/student.feedback.model.js"
 
 // ==================== Student Feedback =======================
 export const studentFeedback = async (req,res) => {
+  const {name , email , rating , course , comment} = req.body
     try {
+      if (!name || !email || !rating || !course || !comment) {
+    return res.status(400).json({ message: "Please fill all required fields" });
+  }
         const studentFeedback = await StudentFeedbackModel.create(req.body)
         return res.status(200).json({studentFeedback , message:"feedback added"});
     } catch (error) {
